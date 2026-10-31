@@ -967,20 +967,21 @@
     <p>&copy; 2026 ahsensi-platform. Tüm hakları saklıdır.</p>
   </footer>
 
-  <!-- Firebase Realtime Database SDK ları -->
+  <!-- Firebase Realtime Database SDK ları ve Entegrasyonu -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // Realtime Database URL'niz otomatik olarak eklendi!
+    // Senin Firebase Bilgilerin ve Realtime Database URL'in tam olarak işlendi:
     const firebaseConfig = {
-      apiKey: "BURAYA_FIREBASE_API_KEY",
-      authDomain: "BURAYA_FIREBASE_AUTH_DOMAIN",
-      databaseURL: "https://ahsensi-platform-default-rtdb.firebaseio.com/",
+      apiKey: "AIzaSyAjTF1LWSJ2aTPdZ69mxtp889uovAo_9YQ",
+      authDomain: "ahsensi-platform.firebaseapp.com",
+      databaseURL: "https://ahsensi-platform-default-rtdb.firebaseio.com",
       projectId: "ahsensi-platform",
-      storageBucket: "BURAYA_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "BURAYA_FIREBASE_MESSAGING_SENDER_ID",
-      appId: "BURAYA_FIREBASE_APP_ID"
+      storageBucket: "ahsensi-platform.firebasestorage.app",
+      messagingSenderId: "298596943276",
+      appId: "1:298596943276:web:3cfaf202e32462e88c6609",
+      measurementId: "G-J6CQLJRC5B"
     };
 
     const app = initializeApp(firebaseConfig);
