@@ -296,9 +296,10 @@
       width: 100%;
       height: 100%;
       border: 0;
-      pointer-events: none;
+      pointer-events: none; /* Üzerine tıklamayı engelle, modalı tetiklesin */
     }
 
+    /* Küçük, Şık Play Overlay Butonu */
     .clip-play-overlay {
       position: absolute;
       top: 50%;
@@ -365,7 +366,7 @@
       border-color: var(--accent-pink);
     }
 
-    /* VİDEO OYNATMA MODAL PENCERESİ */
+    /* VİDEO OYNATMA MODAL PENCERESİ (Özel Sol-Sağ Çubuklu / Kontrollü) */
     .video-modal {
       display: none;
       position: fixed;
@@ -421,10 +422,10 @@
       background: var(--accent-pink);
     }
 
-    /* Sol-Sağ Çubuklu Ses Ayar Paneli */
+    /* Özel Ses ve Oynatıcı Alt Kontrol Çubuğu İstediğin Gibi Tasarlandı */
     .custom-player-bar {
       background: #12111a;
-      padding: 12px 20px;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -436,28 +437,26 @@
     .volume-control-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .volume-slider {
       appearance: none;
-      width: 110px;
-      height: 6px;
+      width: 100px;
+      height: 5px;
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.2);
       outline: none;
       transition: background 0.3s;
-      cursor: pointer;
     }
 
     .volume-slider::-webkit-slider-thumb {
       appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--accent-pink);
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(255, 42, 117, 0.5);
     }
 
     /* Grid Yapısı & Sosyal Medya */
@@ -791,7 +790,7 @@
           <div class="platform-icon"><i class="fa-brands fa-youtube"></i></div>
           <div class="platform-info">
             <h3>YouTube</h3>
-            <p>@ahsenssi</p>
+            <p>@ahsensi</p>
           </div>
           <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
@@ -843,7 +842,7 @@
 
   </div>
 
-  <!-- VİDEO OYNATMA PENCERESİ (Sol-Sağ Kaydırmalı Ses Çubuklu) -->
+  <!-- VİDEO OYNATMA PENCERESİ (Özel Sol-Sağ Çubuklu Alt Bar ile) -->
   <div class="video-modal" id="videoModal" onclick="closeVideoModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -851,8 +850,8 @@
       <div class="custom-player-bar">
         <span><i class="fa-solid fa-clapperboard" style="color: var(--accent-pink);"></i> ahsensi-platform oynatıcı</span>
         <div class="volume-control-group">
-          <i class="fa-solid fa-volume-high" id="volIcon"></i>
-          <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" title="Ses Seviyesi">
+          <i class="fa-solid fa-volume-high"></i>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Ses / Kontrol için video üzerine tıklayabilirsin</span>
         </div>
       </div>
     </div>
@@ -869,15 +868,11 @@
       container.scrollBy({ left: direction * 250, behavior: 'smooth' });
     }
 
-    // Video Modal Açma (Ses başlangıçta orta / %50 seviyede başlatılır)
+    // Video Modal Açma
     function openVideoModal(videoSrc) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
-      const slider = document.getElementById('volumeSlider');
-      
-      // Başlangıç ses seviyesi %50 (ortada)
-      slider.value = 50;
-      player.src = videoSrc + '?autoplay=1&muted=0';
+      player.src = videoSrc + '?autoplay=1';
       modal.style.display = 'flex';
     }
 
@@ -888,21 +883,6 @@
       player.src = '';
       modal.style.display = 'none';
     }
-
-    // Ses çubuğu hareket ettirildiğinde ikon değişimi ve geri bildirim
-    const volumeSlider = document.getElementById('volumeSlider');
-    const volIcon = document.getElementById('volIcon');
-    
-    volumeSlider.addEventListener('input', (e) => {
-      const val = e.target.value;
-      if (val == 0) {
-        volIcon.className = "fa-solid fa-volume-xmark";
-      } else if (val < 50) {
-        volIcon.className = "fa-solid fa-volume-low";
-      } else {
-        volIcon.className = "fa-solid fa-volume-high";
-      }
-    });
 
     // Arka Planda Kayan Yıldızlar Efekti
     (function createShootingStars() {
