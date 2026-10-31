@@ -130,7 +130,7 @@
       z-index: 10;
     }
 
-    /* Hero Bölümü */
+    /* Hero Bölümü & Profil / Yayın Durumu */
     .hero {
       text-align: center;
       margin-bottom: 50px;
@@ -162,6 +162,49 @@
       object-fit: cover;
       object-position: center;
       display: block;
+    }
+
+    /* Yayın Durum Rozeti (Canlı / Çevrimdışı) */
+    .status-indicator {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: #1a1926;
+      border: 2px solid var(--card-border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .status-indicator:hover { transform: scale(1.05); }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* Canlı Modu */
+    .status-indicator.live .status-dot {
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulseLive 1.5s infinite;
+    }
+    @keyframes pulseLive {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Çevrimdışı Modu */
+    .status-indicator.offline .status-dot {
+      background: var(--text-muted);
     }
 
     .badge {
@@ -390,7 +433,7 @@
       background: var(--accent-pink);
     }
 
-    /* HER 5 SANİYEDE BİR HAREKET EDEN TATLI HEDİYE / SANDIK BUTONU (SAĞ ALT) */
+    /* SAĞ ALT KÖŞE: HAREKETLİ HEDİYE/SANDIK KUTUSU */
     @keyframes pulseAndDance {
       0%, 80%, 100% { transform: scale(1) rotate(0deg); }
       85% { transform: scale(1.15) rotate(-8deg); }
@@ -423,6 +466,45 @@
       transform: scale(1.2) rotate(0deg) !important;
       box-shadow: 0 15px 35px rgba(255, 42, 117, 0.6);
       animation: none;
+    }
+
+    /* SOL ALT KÖŞE: ANLIK KALP SAÇMA BUTONU */
+    .floating-heart-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--accent-pink);
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      transition: transform 0.2s, background 0.3s, border-color 0.3s;
+    }
+    .floating-heart-btn:hover {
+      transform: scale(1.12);
+      background: rgba(255, 42, 117, 0.15);
+      border-color: rgba(255, 42, 117, 0.4);
+    }
+
+    /* Uçan Kalpler Animasyonu */
+    @keyframes floatUpHeart {
+      0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-220px) scale(1.4) rotate(20deg); opacity: 0; }
+    }
+    .flying-heart-particle {
+      position: fixed;
+      font-size: 1.6rem;
+      pointer-events: none;
+      z-index: 3500;
+      animation: floatUpHeart 1s forwards ease-out;
     }
 
     /* MODALLAR */
@@ -749,6 +831,11 @@
         <div class="avatar-box">
           <img src="ahsen.png" alt="Ahsensi">
         </div>
+        <!-- YAYIN DURUM ROZETİ (Üzerine tıklayarak Canlı / Çevrimdışı modunu değiştirebilirsin!) -->
+        <div class="status-indicator live" id="streamStatusIndicator" onclick="toggleStreamStatus()" title="Durumu değiştirmek için tıkla">
+          <div class="status-dot"></div>
+          <span id="statusText">CANLI</span>
+        </div>
       </div>
       
       <span class="badge">🚀 RESMİ YAYIN PLATFORMU</span>
@@ -917,7 +1004,12 @@
 
   </div>
 
-  <!-- SAĞ ALT KÖŞE: HER 5 SANİYEDE BİR HAREKET EDEN TATLI HEDİYE/SANDIK KUTUSU -->
+  <!-- SOL ALT KÖŞE: ANLIK KALP SAÇMA BUTONU -->
+  <div class="floating-heart-btn" onclick="spawnFloatingHearts(event)" title="Kalp Gönder ❤️">
+    <i class="fa-solid fa-heart"></i>
+  </div>
+
+  <!-- SAĞ ALT KÖŞE: HAREKETLİ HEDİYE/SANDIK KUTUSU -->
   <div class="floating-chest-btn" id="chestBtn" onclick="openChestModal()" title="Gizli Zarf / Dilek Kutusu ✨">
     <i class="fa-solid fa-gift"></i>
   </div>
@@ -1046,6 +1138,42 @@
   </script>
 
   <script>
+    // Canlı / Çevrimdışı Durum Değiştirme (Tıklayınca Değişir)
+    let isLive = true;
+    function toggleStreamStatus() {
+      isLive = !isLive;
+      const indicator = document.getElementById('streamStatusIndicator');
+      const text = document.getElementById('statusText');
+      
+      if (isLive) {
+        indicator.className = 'status-indicator live';
+        text.innerText = 'CANLI';
+      } else {
+        indicator.className = 'status-indicator offline';
+        text.innerText = 'ÇEVRİMDIŞI 💤';
+      }
+    }
+
+    // Sol Alt Kalp Butonu Animasyonu (Tıklayınca Etrafa Kalp Saçar)
+    function spawnFloatingHearts(event) {
+      const hearts = ['❤️', '💖', '✨', '🩷', '💜'];
+      const rect = event.currentTarget.getBoundingClientRect();
+      
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'flying-heart-particle';
+        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        
+        // Butonun bulunduğu konumdan rastgele etrafa saçılma
+        const randomX = (Math.random() - 0.5) * 80;
+        heart.style.left = (rect.left + rect.width / 2 + randomX) + 'px';
+        heart.style.top = rect.top + 'px';
+        
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }
+    }
+
     // Klipleri sağa sola kaydırma
     function scrollClips(direction) {
       const container = document.getElementById('clipsContainer');
