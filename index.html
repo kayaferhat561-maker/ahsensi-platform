@@ -53,8 +53,8 @@
     .glow-1 { top: -100px; left: -100px; background: var(--accent-pink); }
     .glow-2 { bottom: -100px; right: -100px; background: #7f5af0; }
 
-    /* Kayan Sönük ve Küçük Şakayık Çiçekleri Arka Planı */
-    .peony-bg {
+    /* Kayan Yıldızlar Arka Planı */
+    .stars-bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -65,18 +65,17 @@
       overflow: hidden;
     }
 
-    .floating-peony-img {
+    .shooting-star {
       position: absolute;
-      object-fit: contain;
-      animation: floatPeony linear infinite;
-      opacity: 0.35; /* Sönük / hafif görünüm */
-      filter: drop-shadow(0 0 4px rgba(255, 42, 117, 0.15));
+      color: rgba(255, 255, 255, 0.6);
+      animation: floatStar linear infinite;
+      font-size: 0.9rem;
     }
 
-    @keyframes floatPeony {
+    @keyframes floatStar {
       0% { transform: translateY(-20vh) translateX(0) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.35; }
-      80% { opacity: 0.35; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
       100% { transform: translateY(120vh) translateX(-50px) rotate(360deg); opacity: 0; }
     }
 
@@ -197,7 +196,7 @@
       display: block;
     }
 
-    /* Yayın Durum Rozeti */
+    /* Yayın Durum Rozeti (Fotoğrafın hemen altında, bitişik) */
     .status-indicator {
       display: inline-flex;
       align-items: center;
@@ -219,6 +218,7 @@
       border-radius: 50%;
     }
 
+    /* Canlı Modu */
     .status-indicator.live .status-dot {
       background: #22c55e;
       box-shadow: 0 0 8px #22c55e;
@@ -230,6 +230,7 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
+    /* Çevrimdışı Modu */
     .status-indicator.offline .status-dot {
       background: var(--text-muted);
     }
@@ -824,7 +825,7 @@
       box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
     }
 
-    /* SAYFA ALTI BYNOGAME BAĞIŞ KARTI */
+    /* SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER SEKSİYONU) */
     .footer-donate-section {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -910,10 +911,10 @@
 </head>
 <body>
 
-  <!-- Arka Plan Işıkları ve Sönük/Küçük Şakayık Görselleri -->
+  <!-- Arka Plan Işıkları ve Kayan Yıldızlar -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
-  <div class="peony-bg" id="peonyBg"></div>
+  <div class="stars-bg" id="starsBg"></div>
 
   <!-- Navigasyon Bar -->
   <nav>
@@ -928,7 +929,7 @@
         <li><a href="#contact">İletişim</a></li>
       </ul>
 
-      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU -->
+      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU (GÜNCELLENDİ) -->
       <a href="https://donate.bynogame.com/ahsensi" target="_blank" rel="noopener noreferrer" class="nav-destek-btn">
         <i class="fa-solid fa-heart"></i> Destek
       </a>
@@ -1115,7 +1116,7 @@
       </div>
     </section>
 
-    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI -->
+    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER - GÜNCELLENDİ) -->
     <div class="footer-donate-section">
       <div class="footer-badge">
         <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
@@ -1391,24 +1392,19 @@
       }
     }
 
-    /* GERÇEK ŞAKAYIK GÖRSELLERİNİ ARKA PLANDA SÜZME FONKSİYONU */
-    (function createFloatingPeonies() {
-      const container = document.getElementById('peonyBg');
+    (function createShootingStars() {
+      const container = document.getElementById('starsBg');
+      const symbols = ['✨', '⭐', '★', '·', '✦'];
       
-      for (let i = 0; i < 18; i++) {
-        const peony = document.createElement('img');
-        peony.src = 'sakayik.png'; // Klasördeki şakayık görselinin adı
-        peony.className = 'floating-peony-img';
-        peony.style.left = Math.random() * 100 + '%';
-        peony.style.animationDuration = (Math.random() * 9 + 7) + 's';
-        peony.style.animationDelay = (Math.random() * 6) + 's';
-        
-        // Küçük boyutlar (18px ile 32px arası)
-        const size = Math.random() * 14 + 18; 
-        peony.style.width = size + 'px';
-        peony.style.height = size + 'px';
-        
-        container.appendChild(peony);
+      for (let i = 0; i < 25; i++) {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDuration = (Math.random() * 6 + 4) + 's';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        star.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
+        container.appendChild(star);
       }
     })();
   </script>
