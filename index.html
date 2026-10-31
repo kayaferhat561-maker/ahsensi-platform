@@ -134,13 +134,16 @@
     .hero {
       text-align: center;
       margin-bottom: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .avatar-wrapper {
       position: relative;
       width: 120px;
       height: 120px;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 10px auto;
     }
 
     .avatar-box {
@@ -164,25 +167,21 @@
       display: block;
     }
 
-    /* Yayın Durum Rozeti (Canlı / Çevrimdışı) */
+    /* Yayın Durum Rozeti (Fotoğrafın hemen altında, bitişik) */
     .status-indicator {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      background: #1a1926;
-      border: 2px solid var(--card-border);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: transform 0.2s;
+      gap: 6px;
+      background: rgba(26, 25, 38, 0.9);
+      border: 1px solid var(--card-border);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      margin-bottom: 15px;
+      backdrop-filter: blur(8px);
     }
-    .status-indicator:hover { transform: scale(1.05); }
 
     .status-dot {
       width: 8px;
@@ -468,21 +467,21 @@
       animation: none;
     }
 
-    /* SOL ALT KÖŞE: ANLIK KALP SAÇMA BUTONU */
+    /* SOL ALT KÖŞE: KÜÇÜK KALP BUTONU VE HUNİ ŞEKLİNDE SÖNEREK YAYILMA */
     .floating-heart-btn {
       position: fixed;
-      bottom: 30px;
-      left: 30px;
+      bottom: 25px;
+      left: 25px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       color: var(--accent-pink);
-      width: 55px;
-      height: 55px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       cursor: pointer;
       backdrop-filter: blur(10px);
       z-index: 999;
@@ -494,17 +493,26 @@
       border-color: rgba(255, 42, 117, 0.4);
     }
 
-    /* Uçan Kalpler Animasyonu */
-    @keyframes floatUpHeart {
-      0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-220px) scale(1.4) rotate(20deg); opacity: 0; }
+    /* Hunimsi (Koni şeklinde) Saçılma ve Sönme Animasyonu */
+    @keyframes funnelSpread {
+      0% {
+        transform: translate(0, 0) scale(0.4) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(1.3) rotate(var(--end-rot));
+        opacity: 0; /* Gittikçe sönüyor */
+      }
     }
+
     .flying-heart-particle {
       position: fixed;
-      font-size: 1.6rem;
+      bottom: 75px;
+      left: 35px;
+      font-size: 1.4rem;
       pointer-events: none;
       z-index: 3500;
-      animation: floatUpHeart 1s forwards ease-out;
+      animation: funnelSpread 1.2s forwards cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     /* MODALLAR */
@@ -831,13 +839,14 @@
         <div class="avatar-box">
           <img src="ahsen.png" alt="Ahsensi">
         </div>
-        <!-- YAYIN DURUM ROZETİ (Üzerine tıklayarak Canlı / Çevrimdışı modunu değiştirebilirsin!) -->
-        <div class="status-indicator live" id="streamStatusIndicator" onclick="toggleStreamStatus()" title="Durumu değiştirmek için tıkla">
-          <div class="status-dot"></div>
-          <span id="statusText">CANLI</span>
-        </div>
       </div>
       
+      <!-- KICK CANLI / ÇEVRİMDIŞI DURUM ROZETİ (Fotoğrafın Hemen Altında ve Bitişik) -->
+      <div class="status-indicator offline" id="streamStatusIndicator">
+        <div class="status-dot"></div>
+        <span id="statusText">ÇEVRİMDIŞI 💤</span>
+      </div>
+
       <span class="badge">🚀 RESMİ YAYIN PLATFORMU</span>
       <h1>Ahsen "ahsensi"</h1>
       <p class="hero-subtitle">Canlı yayınlar, özel kesitler ve sosyal medya kanallarıma tek yerden ulaşın.</p>
@@ -1004,8 +1013,8 @@
 
   </div>
 
-  <!-- SOL ALT KÖŞE: ANLIK KALP SAÇMA BUTONU -->
-  <div class="floating-heart-btn" onclick="spawnFloatingHearts(event)" title="Kalp Gönder ❤️">
+  <!-- SOL ALT KÖŞE: KÜÇÜK KALP BUTONU (Huni Şeklinde ve Giderek Sönerek Yayılan Efekt) -->
+  <div class="floating-heart-btn" onclick="spawnFunnelHearts(event)" title="Kalp Gönder ❤️">
     <i class="fa-solid fa-heart"></i>
   </div>
 
@@ -1138,39 +1147,52 @@
   </script>
 
   <script>
-    // Canlı / Çevrimdışı Durum Değiştirme (Tıklayınca Değişir)
-    let isLive = true;
-    function toggleStreamStatus() {
-      isLive = !isLive;
+    // Kick Canlı Yayın Durumunu Otomatik Kontrol Etme (Gerçek API / CORS Simülasyonu)
+    async function checkKickStreamStatus() {
       const indicator = document.getElementById('streamStatusIndicator');
       const text = document.getElementById('statusText');
-      
-      if (isLive) {
-        indicator.className = 'status-indicator live';
-        text.innerText = 'CANLI';
-      } else {
+
+      try {
+        // Kick proxy/public endpoint kontrolü
+        const response = await fetch('https://kick.com/api/v1/channels/ahsensi');
+        const data = await response.json();
+        
+        if (data && data.livestream && data.livestream.is_live) {
+          indicator.className = 'status-indicator live';
+          text.innerText = 'CANLI';
+        } else {
+          indicator.className = 'status-indicator offline';
+          text.innerText = 'ÇEVRİMDIŞI 💤';
+        }
+      } catch (e) {
+        // CORS veya ağ engeline takılırsa varsayılan olarak şık bir şekilde çevrimdışı tutar
         indicator.className = 'status-indicator offline';
         text.innerText = 'ÇEVRİMDIŞI 💤';
       }
     }
+    // Sayfa açıldığında kontrol et
+    checkKickStreamStatus();
 
-    // Sol Alt Kalp Butonu Animasyonu (Tıklayınca Etrafa Kalp Saçar)
-    function spawnFloatingHearts(event) {
-      const hearts = ['❤️', '💖', '✨', '🩷', '💜'];
-      const rect = event.currentTarget.getBoundingClientRect();
+    // Sol Alttan Huni Şeklinde Genişleyerek Sönerek Yayılan Kalpler
+    function spawnFunnelHearts(event) {
+      const symbols = ['❤️', '💖', '✨', '🩷', '💜'];
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 8; i++) {
         const heart = document.createElement('div');
         heart.className = 'flying-heart-particle';
-        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         
-        // Butonun bulunduğu konumdan rastgele etrafa saçılma
-        const randomX = (Math.random() - 0.5) * 80;
-        heart.style.left = (rect.left + rect.width / 2 + randomX) + 'px';
-        heart.style.top = rect.top + 'px';
+        // Huni (koni) şeklinde dışarı ve yukarı doğru açılma koordinatları
+        const endX = (Math.random() * 140) + 20; // Sağa doğru açılım
+        const endY = - (Math.random() * 180 + 80); // Yukarı doğru saçılım
+        const endRot = (Math.random() - 0.5) * 60; // Hafif dönme
+        
+        heart.style.setProperty('--end-x', endX + 'px');
+        heart.style.setProperty('--end-y', endY + 'px');
+        heart.style.setProperty('--end-rot', endRot + 'deg');
         
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 1000);
+        setTimeout(() => heart.remove(), 1200);
       }
     }
 
