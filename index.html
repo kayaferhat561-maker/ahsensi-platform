@@ -585,7 +585,7 @@
 
   <div class="container">
     
-    <!-- Hero Bölümü (ahsen.png Sabit Profil Fotoğrafı) -->
+    <!-- Hero Bölümü -->
     <section class="hero">
       <div class="avatar-wrapper">
         <div class="avatar-box">
@@ -630,8 +630,8 @@
           </div>
 
           <!-- 2. Klip -->
-          <div class="clip-card" onclick="openVideoModal('dümenden m24 ile adam vurma işi.mp4')">
-            <video src="dümenden m24 ile adam vurma işi.mp4" class="clip-video-box" muted loop playsinline></video>
+          <div class="clip-card" onclick="openVideoModal('klip2.mp4')">
+            <video src="klip2.mp4" class="clip-video-box" muted loop playsinline></video>
             <div class="clip-info">
               <h4>2: dümenden m24 ile adam vurma işi</h4>
               <p>Oynat • İzle</p>
@@ -639,8 +639,8 @@
           </div>
 
           <!-- 3. Klip -->
-          <div class="clip-card" onclick="openVideoModal('gözüm yok.mp4')">
-            <video src="gözüm yok.mp4" class="clip-video-box" muted loop playsinline></video>
+          <div class="clip-card" onclick="openVideoModal('klip3.mp4')">
+            <video src="klip3.mp4" class="clip-video-box" muted loop playsinline></video>
             <div class="clip-info">
               <h4>3: gözüm yok</h4>
               <p>Oynat • İzle</p>
@@ -648,8 +648,8 @@
           </div>
 
           <!-- 4. Klip -->
-          <div class="clip-card" onclick="openVideoModal('CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR.mp4')">
-            <video src="CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR.mp4" class="clip-video-box" muted loop playsinline></video>
+          <div class="clip-card" onclick="openVideoModal('klip4.mp4')">
+            <video src="klip4.mp4" class="clip-video-box" muted loop playsinline></video>
             <div class="clip-info">
               <h4>4: CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR</h4>
               <p>Oynat • İzle</p>
@@ -657,8 +657,8 @@
           </div>
 
           <!-- 5. Klip -->
-          <div class="clip-card" onclick="openVideoModal('aim god ya.mp4')">
-            <video src="aim god ya.mp4" class="clip-video-box" muted loop playsinline></video>
+          <div class="clip-card" onclick="openVideoModal('klip5.mp4')">
+            <video src="klip5.mp4" class="clip-video-box" muted loop playsinline></video>
             <div class="clip-info">
               <h4>5: aim god ya</h4>
               <p>Oynat • İzle</p>
@@ -671,13 +671,13 @@
       </div>
     </section>
 
-    <!-- Sosyal Medya Kartları -->
+    <!-- Sosyal Medya Kartları (Kick Logosu Düzeltildi) -->
     <section id="platforms">
       <h2 class="section-title"><i class="fa-solid fa-link"></i> Sosyal Medya Kanalları</h2>
       <div class="grid-platforms">
         
         <a href="https://kick.com/ahsensi" target="_blank" class="platform-card kick">
-          <div class="platform-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="platform-icon"><i class="fa-solid fa-satellite-dish"></i></div>
           <div class="platform-info">
             <h3>Kick Canlı Yayın</h3>
             <p>kick.com/ahsensi</p>
@@ -778,7 +778,7 @@
       container.scrollBy({ left: direction * 250, behavior: 'smooth' });
     }
 
-    // Video Modal Açma (Tıklayınca açılır ve oynar)
+    // Video Modal Açma
     function openVideoModal(videoSrc) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
@@ -787,13 +787,13 @@
       player.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
     }
 
-    // Video Modal Kapatma (Kapatınca ses/video tamamen durur ve sıfırlanır)
+    // Video Modal Kapatma
     function closeVideoModal() {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
       player.pause();
-      player.currentTime = 0; // Başa sar
-      player.src = ''; // Kaynağı tamamen boşaltarak arka planda ses kalmasını engelle
+      player.currentTime = 0;
+      player.src = '';
       modal.style.display = 'none';
     }
 
