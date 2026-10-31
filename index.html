@@ -53,7 +53,7 @@
     .glow-1 { top: -100px; left: -100px; background: var(--accent-pink); }
     .glow-2 { bottom: -100px; right: -100px; background: #7f5af0; }
 
-    /* Kayan Özel Şakayık Çiçekleri Arka Planı */
+    /* Kayan Yıldızlar Arka Planı */
     .stars-bg {
       position: fixed;
       top: 0;
@@ -65,18 +65,18 @@
       overflow: hidden;
     }
 
-    .shooting-peony {
+    .shooting-star {
       position: absolute;
+      color: rgba(255, 255, 255, 0.6);
       animation: floatStar linear infinite;
-      opacity: 0.85;
-      filter: drop-shadow(0 0 6px rgba(255, 42, 117, 0.4));
+      font-size: 0.9rem;
     }
 
     @keyframes floatStar {
       0% { transform: translateY(-20vh) translateX(0) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.85; }
-      80% { opacity: 0.85; }
-      100% { transform: translateY(120vh) translateX(-60px) rotate(360deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(120vh) translateX(-50px) rotate(360deg); opacity: 0; }
     }
 
     /* Navigasyon Bar */
@@ -196,7 +196,7 @@
       display: block;
     }
 
-    /* Yayın Durum Rozeti */
+    /* Yayın Durum Rozeti (Fotoğrafın hemen altında, bitişik) */
     .status-indicator {
       display: inline-flex;
       align-items: center;
@@ -218,6 +218,7 @@
       border-radius: 50%;
     }
 
+    /* Canlı Modu */
     .status-indicator.live .status-dot {
       background: #22c55e;
       box-shadow: 0 0 8px #22c55e;
@@ -229,6 +230,7 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
+    /* Çevrimdışı Modu */
     .status-indicator.offline .status-dot {
       background: var(--text-muted);
     }
@@ -823,7 +825,7 @@
       box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
     }
 
-    /* SAYFA ALTI BYNOGAME BAĞIŞ KARTI */
+    /* SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER SEKSİYONU) */
     .footer-donate-section {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -909,7 +911,7 @@
 </head>
 <body>
 
-  <!-- Arka Plan Işıkları ve Özel Şakayık Vektörleri -->
+  <!-- Arka Plan Işıkları ve Kayan Yıldızlar -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
   <div class="stars-bg" id="starsBg"></div>
@@ -927,7 +929,7 @@
         <li><a href="#contact">İletişim</a></li>
       </ul>
 
-      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU -->
+      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU (GÜNCELLENDİ) -->
       <a href="https://donate.bynogame.com/ahsensi" target="_blank" rel="noopener noreferrer" class="nav-destek-btn">
         <i class="fa-solid fa-heart"></i> Destek
       </a>
@@ -1114,7 +1116,7 @@
       </div>
     </section>
 
-    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI -->
+    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER - GÜNCELLENDİ) -->
     <div class="footer-donate-section">
       <div class="footer-badge">
         <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
@@ -1390,40 +1392,18 @@
       }
     }
 
-    /* KATMANLI ŞAKAYIK ÇİÇEĞİ SVG ÇİZİMİ */
-    const peonySvg = `
-      <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Dış Katman Yapraklar (Koyu Pembe/Lila) -->
-        <path d="M50 10 C35 10 20 25 25 45 C15 35 5 50 15 65 C5 75 20 90 40 85 C45 95 60 95 65 85 C80 90 95 75 85 65 C95 50 85 35 75 45 C80 25 65 10 50 10 Z" fill="#ff4d8d" opacity="0.75"/>
-        <!-- Orta Katman Yapraklar (Canlı Pembe) -->
-        <path d="M50 20 C40 20 28 32 32 48 C22 40 16 52 24 64 C16 72 28 82 44 78 C48 86 60 86 64 78 C76 82 88 72 80 64 C88 52 82 40 72 48 C76 32 64 20 50 20 Z" fill="#ff75a5" opacity="0.9"/>
-        <!-- İç Katman Yapraklar (Açık Pembe) -->
-        <path d="M50 28 C43 28 35 37 38 49 C30 43 26 52 31 60 C26 67 35 74 46 71 C49 77 57 77 60 71 C71 74 78 67 73 60 C78 52 74 43 66 49 C69 37 61 28 50 28 Z" fill="#ffa8c5"/>
-        <!-- Şakayık Göbeği & Polen Detayları (Altın/Sarı) -->
-        <circle cx="50" cy="52" r="10" fill="#ffd700" opacity="0.9"/>
-        <circle cx="47" cy="49" r="2.5" fill="#ffffff"/>
-        <circle cx="53" cy="50" r="2" fill="#ffffff"/>
-        <circle cx="49" cy="55" r="2" fill="#ffffff"/>
-        <circle cx="53" cy="54" r="1.5" fill="#ffffff"/>
-      </svg>
-    `;
-
-    /* Arka Planda Kayan Şakayık Çiçekleri Efekti */
-    (function createShootingPeonies() {
+    (function createShootingStars() {
       const container = document.getElementById('starsBg');
+      const symbols = ['✨', '⭐', '★', '·', '✦'];
       
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const star = document.createElement('div');
-        star.className = 'shooting-peony';
-        star.innerHTML = peonySvg;
+        star.className = 'shooting-star';
+        star.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         star.style.left = Math.random() * 100 + '%';
-        star.style.animationDuration = (Math.random() * 8 + 6) + 's';
+        star.style.animationDuration = (Math.random() * 6 + 4) + 's';
         star.style.animationDelay = (Math.random() * 5) + 's';
-        
-        // Rastgele boyut (gerçekçi görünüm için)
-        const scale = Math.random() * 0.6 + 0.7;
-        star.style.transform = `scale(${scale})`;
-        
+        star.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
         container.appendChild(star);
       }
     })();
