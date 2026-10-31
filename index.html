@@ -105,6 +105,12 @@
       gap: 8px;
     }
 
+    .nav-right-area {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .nav-links {
       display: flex;
       gap: 25px;
@@ -120,6 +126,29 @@
     }
 
     .nav-links a:hover { color: var(--text-main); }
+
+    /* Sağ Üst Destek Butonu */
+    .nav-destek-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(228, 30, 63, 0.15);
+      border: 1px solid rgba(228, 30, 63, 0.4);
+      color: #ff4757;
+      padding: 7px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .nav-destek-btn:hover {
+      background: #e41e3f;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(228, 30, 63, 0.4);
+      transform: translateY(-1px);
+    }
 
     /* Ana Konteyner */
     .container {
@@ -493,7 +522,6 @@
       border-color: rgba(255, 42, 117, 0.4);
     }
 
-    /* Hunimsi (Koni şeklinde) Saçılma ve Sönme Animasyonu */
     @keyframes funnelSpread {
       0% {
         transform: translate(0, 0) scale(0.4) rotate(0deg);
@@ -501,7 +529,7 @@
       }
       100% {
         transform: translate(var(--end-x), var(--end-y)) scale(1.3) rotate(var(--end-rot));
-        opacity: 0; /* Gittikçe sönüyor */
+        opacity: 0;
       }
     }
 
@@ -599,7 +627,6 @@
     }
     .admin-link-btn:hover { color: var(--text-main); }
 
-    /* GELEN MESAJLAR LİSTESİ (YÖNETİCİ PANELİ) */
     .messages-container {
       max-height: 300px;
       overflow-y: auto;
@@ -625,7 +652,6 @@
       margin-top: 5px;
     }
 
-    /* ZARFIN UÇMA ANİMASYONU */
     @keyframes flyToChest {
       0% { transform: scale(1) translateY(0); opacity: 1; }
       100% { transform: scale(0.1) translateY(400px) translateX(200px); opacity: 0; }
@@ -753,6 +779,7 @@
       padding: 35px;
       text-align: center;
       backdrop-filter: blur(10px);
+      margin-bottom: 50px;
     }
 
     .contact-card h2 {
@@ -798,13 +825,82 @@
       box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
     }
 
+    /* SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER SEKSİYONU) */
+    .footer-donate-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px 25px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .footer-donate-section:hover {
+      border-color: rgba(228, 30, 63, 0.4);
+      box-shadow: 0 15px 35px rgba(228, 30, 63, 0.15);
+    }
+
+    .footer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(228, 30, 63, 0.15);
+      color: #ff4757;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .footer-donate-section h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .footer-donate-section p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 450px;
+      margin: 0 auto 22px auto;
+      line-height: 1.5;
+    }
+
+    .bynogame-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #e41e3f 0%, #b30f2b 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(228, 30, 63, 0.35);
+    }
+
+    .bynogame-action-btn:hover {
+      background: linear-gradient(135deg, #ff2a4b 0%, #d41434 100%);
+      box-shadow: 0 8px 25px rgba(228, 30, 63, 0.55);
+      transform: scale(1.02);
+    }
+
     footer {
       text-align: center;
       padding: 30px 0;
       color: var(--text-muted);
       font-size: 0.85rem;
       border-top: 1px solid var(--card-border);
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     @media (max-width: 768px) {
@@ -820,15 +916,24 @@
   <div class="ambient-glow glow-2"></div>
   <div class="stars-bg" id="starsBg"></div>
 
+  <!-- Navigasyon Bar -->
   <nav>
     <div class="logo"><span>✨</span> ahsensi-platform</div>
-    <ul class="nav-links">
-      <li><a href="#live">Yayın</a></li>
-      <li><a href="#clips">Klipler</a></li>
-      <li><a href="#platforms">Sosyal Medya</a></li>
-      <li><a href="#rules">Kurallar</a></li>
-      <li><a href="#contact">İletişim</a></li>
-    </ul>
+    
+    <div class="nav-right-area">
+      <ul class="nav-links">
+        <li><a href="#live">Yayın</a></li>
+        <li><a href="#clips">Klipler</a></li>
+        <li><a href="#platforms">Sosyal Medya</a></li>
+        <li><a href="#rules">Kurallar</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+
+      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU -->
+      <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="nav-destek-btn">
+        <i class="fa-solid fa-heart"></i> Destek
+      </a>
+    </div>
   </nav>
 
   <div class="container">
@@ -841,7 +946,7 @@
         </div>
       </div>
       
-      <!-- KICK CANLI / ÇEVRİMDIŞI DURUM ROZETİ (Fotoğrafın Hemen Altında ve Bitişik) -->
+      <!-- KICK CANLI / ÇEVRİMDIŞI DURUM ROZETİ -->
       <div class="status-indicator offline" id="streamStatusIndicator">
         <div class="status-dot"></div>
         <span id="statusText">ÇEVRİMDIŞI 💤</span>
@@ -961,7 +1066,7 @@
           <div class="platform-icon"><i class="fa-brands fa-youtube"></i></div>
           <div class="platform-info">
             <h3>YouTube</h3>
-            <p>@ahsensi</p>
+            <p>@ahsenssi</p>
           </div>
           <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
@@ -1011,9 +1116,24 @@
       </div>
     </section>
 
+    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER) -->
+    <div class="footer-donate-section">
+      <div class="footer-badge">
+        <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
+      </div>
+      <h3>Yayınları Desteklemek İster misin?</h3>
+      <p>Bağış yaparak ekranda mesajını gösterebilir ve canlı yayınlarımıza katkıda bulunabilirsin.</p>
+      
+      <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="bynogame-action-btn">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>ByNoGame ile Destek Ol</span>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+
   </div>
 
-  <!-- SOL ALT KÖŞE: KÜÇÜK KALP BUTONU (Huni Şeklinde ve Giderek Sönerek Yayılan Efekt) -->
+  <!-- SOL ALT KÖŞE: KÜÇÜK KALP BUTONU -->
   <div class="floating-heart-btn" onclick="spawnFunnelHearts(event)" title="Kalp Gönder ❤️">
     <i class="fa-solid fa-heart"></i>
   </div>
@@ -1050,7 +1170,7 @@
     </div>
   </div>
 
-  <!-- GELEN MESAJLARI OKUMA PANELİ (Realtime Database) -->
+  <!-- GELEN MESAJLARI OKUMA PANELİ -->
   <div class="chest-modal" id="adminPanelModal" onclick="closeAdminPanelModal()">
     <div class="envelope-box" onclick="event.stopPropagation()" style="max-width: 600px;">
       <button class="close-modal" onclick="closeAdminPanelModal()" style="top: 10px; right: 10px; width: 32px; height: 32px; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
@@ -1096,7 +1216,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Realtime Database ile Mesaj Gönderme
     window.submitMessageToFirebase = async function(messageText) {
       try {
         await push(ref(db, 'gizli_mesajlar'), {
@@ -1110,7 +1229,6 @@
       }
     };
 
-    // Realtime Database ile Mesajları Çekme (Yönetici Paneli)
     window.fetchMessagesFromFirebase = async function() {
       const container = document.getElementById('messagesList');
       container.innerHTML = '<div class="message-item">Yükleniyor...</div>';
@@ -1147,13 +1265,11 @@
   </script>
 
   <script>
-    // Kick Canlı Yayın Durumunu Otomatik Kontrol Etme (Gerçek API / CORS Simülasyonu)
     async function checkKickStreamStatus() {
       const indicator = document.getElementById('streamStatusIndicator');
       const text = document.getElementById('statusText');
 
       try {
-        // Kick proxy/public endpoint kontrolü
         const response = await fetch('https://kick.com/api/v1/channels/ahsensi');
         const data = await response.json();
         
@@ -1165,15 +1281,12 @@
           text.innerText = 'ÇEVRİMDIŞI 💤';
         }
       } catch (e) {
-        // CORS veya ağ engeline takılırsa varsayılan olarak şık bir şekilde çevrimdışı tutar
         indicator.className = 'status-indicator offline';
         text.innerText = 'ÇEVRİMDIŞI 💤';
       }
     }
-    // Sayfa açıldığında kontrol et
     checkKickStreamStatus();
 
-    // Sol Alttan Huni Şeklinde Genişleyerek Sönerek Yayılan Kalpler
     function spawnFunnelHearts(event) {
       const symbols = ['❤️', '💖', '✨', '🩷', '💜'];
       
@@ -1182,10 +1295,9 @@
         heart.className = 'flying-heart-particle';
         heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         
-        // Huni (koni) şeklinde dışarı ve yukarı doğru açılma koordinatları
-        const endX = (Math.random() * 140) + 20; // Sağa doğru açılım
-        const endY = - (Math.random() * 180 + 80); // Yukarı doğru saçılım
-        const endRot = (Math.random() - 0.5) * 60; // Hafif dönme
+        const endX = (Math.random() * 140) + 20;
+        const endY = - (Math.random() * 180 + 80);
+        const endRot = (Math.random() - 0.5) * 60;
         
         heart.style.setProperty('--end-x', endX + 'px');
         heart.style.setProperty('--end-y', endY + 'px');
@@ -1196,13 +1308,11 @@
       }
     }
 
-    // Klipleri sağa sola kaydırma
     function scrollClips(direction) {
       const container = document.getElementById('clipsContainer');
       container.scrollBy({ left: direction * 250, behavior: 'smooth' });
     }
 
-    // Video Modal Açma
     function openVideoModal(videoSrc) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
@@ -1210,7 +1320,6 @@
       modal.style.display = 'flex';
     }
 
-    // Video Modal Kapatma
     function closeVideoModal() {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
@@ -1218,7 +1327,6 @@
       modal.style.display = 'none';
     }
 
-    // Sandık Modalları Kontrolü
     function openChestModal() {
       document.getElementById('chestModal').style.display = 'flex';
     }
@@ -1241,7 +1349,6 @@
       document.getElementById('adminPanelModal').style.display = 'none';
     }
 
-    // Yönetici Giriş Kontrolü (ahsen / çıtkırıldım)
     function checkAdminLogin() {
       const user = document.getElementById('adminUser').value.trim();
       const pass = document.getElementById('adminPass').value.trim();
@@ -1257,7 +1364,6 @@
       }
     }
 
-    // Zarf Gönderme & Animasyon Fonksiyonu
     async function sendSecretMessage() {
       const input = document.getElementById('secretMessageInput');
       const text = input.value.trim();
@@ -1267,7 +1373,6 @@
         return;
       }
 
-      // Uçma Animasyonu
       const flyer = document.createElement('div');
       flyer.className = 'flying-envelope';
       flyer.innerHTML = '✉️';
@@ -1282,13 +1387,11 @@
         alert('Zarfın başarıyla gizli sandığa ulaştı! Teşekkürler ✨');
       }, 800);
 
-      // Realtime Database'e Kaydet
       if (window.submitMessageToFirebase) {
         await window.submitMessageToFirebase(text);
       }
     }
 
-    // Arka Planda Kayan Yıldızlar Efekti
     (function createShootingStars() {
       const container = document.getElementById('starsBg');
       const symbols = ['✨', '⭐', '★', '·', '✦'];
