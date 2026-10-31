@@ -275,7 +275,6 @@
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      position: relative;
       transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
 
@@ -285,44 +284,13 @@
       box-shadow: 0 10px 25px rgba(255, 42, 117, 0.15);
     }
 
-    .clip-media-wrapper {
-      position: relative;
+    .clip-video-box {
       width: 100%;
       height: 130px;
+      object-fit: cover;
       background: #000;
-    }
-
-    .clip-media-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      pointer-events: none; /* Üzerine tıklamayı engelle, modalı tetiklesin */
-    }
-
-    /* Küçük, Şık Play Overlay Butonu */
-    .clip-play-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
-      background: rgba(15, 14, 23, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 0.85rem;
-      backdrop-filter: blur(4px);
-      transition: all 0.3s;
-    }
-
-    .clip-card:hover .clip-play-overlay {
-      background: var(--accent-pink);
-      border-color: var(--accent-pink);
-      transform: translate(-50%, -50%) scale(1.1);
+      display: block;
+      pointer-events: none;
     }
 
     .clip-info {
@@ -366,7 +334,7 @@
       border-color: var(--accent-pink);
     }
 
-    /* VİDEO OYNATMA MODAL PENCERESİ (Özel Sol-Sağ Çubuklu / Kontrollü) */
+    /* VİDEO OYNATICI MODAL PENCERESİ (Streamable Iframe Entegreli) */
     .video-modal {
       display: none;
       position: fixed;
@@ -391,14 +359,14 @@
       border: 1px solid var(--card-border);
       box-shadow: 0 20px 50px rgba(0,0,0,0.8);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .modal-content iframe {
       width: 100%;
       height: 100%;
       border: 0;
-      flex-grow: 1;
     }
 
     .close-modal {
@@ -420,43 +388,6 @@
 
     .close-modal:hover {
       background: var(--accent-pink);
-    }
-
-    /* Özel Ses ve Oynatıcı Alt Kontrol Çubuğu İstediğin Gibi Tasarlandı */
-    .custom-player-bar {
-      background: #12111a;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid var(--card-border);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .volume-control-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .volume-slider {
-      appearance: none;
-      width: 100px;
-      height: 5px;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.2);
-      outline: none;
-      transition: background 0.3s;
-    }
-
-    .volume-slider::-webkit-slider-thumb {
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent-pink);
-      cursor: pointer;
     }
 
     /* Grid Yapısı & Sosyal Medya */
@@ -690,10 +621,7 @@
           
           <!-- 1. Klip: immo aim -->
           <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/ozhhuh')">
-            <div class="clip-media-wrapper">
-              <iframe src="https://streamable.com/e/ozhhuh?autoplay=0&muted=1" scrolling="no"></iframe>
-              <div class="clip-play-overlay"><i class="fa-solid fa-play"></i></div>
-            </div>
+            <iframe src="https://streamable.com/e/ozhhuh?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>1: immo aim</h4>
               <p>Oynat • İzle</p>
@@ -702,10 +630,7 @@
 
           <!-- 2. Klip: dümenden m24 ile adam vurma işi -->
           <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/yuxnqq')">
-            <div class="clip-media-wrapper">
-              <iframe src="https://streamable.com/e/yuxnqq?autoplay=0&muted=1" scrolling="no"></iframe>
-              <div class="clip-play-overlay"><i class="fa-solid fa-play"></i></div>
-            </div>
+            <iframe src="https://streamable.com/e/yuxnqq?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>2: dümenden m24 ile adam vurma işi</h4>
               <p>Oynat • İzle</p>
@@ -714,10 +639,7 @@
 
           <!-- 3. Klip: gözüm yok -->
           <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/fsbj0k')">
-            <div class="clip-media-wrapper">
-              <iframe src="https://streamable.com/e/fsbj0k?autoplay=0&muted=1" scrolling="no"></iframe>
-              <div class="clip-play-overlay"><i class="fa-solid fa-play"></i></div>
-            </div>
+            <iframe src="https://streamable.com/e/fsbj0k?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>3: gözüm yok</h4>
               <p>Oynat • İzle</p>
@@ -726,10 +648,7 @@
 
           <!-- 4. Klip: CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR -->
           <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/6pc0j3')">
-            <div class="clip-media-wrapper">
-              <iframe src="https://streamable.com/e/6pc0j3?autoplay=0&muted=1" scrolling="no"></iframe>
-              <div class="clip-play-overlay"><i class="fa-solid fa-play"></i></div>
-            </div>
+            <iframe src="https://streamable.com/e/6pc0j3?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>4: CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR</h4>
               <p>Oynat • İzle</p>
@@ -738,10 +657,7 @@
 
           <!-- 5. Klip: aim god ya -->
           <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/7xc9ns')">
-            <div class="clip-media-wrapper">
-              <iframe src="https://streamable.com/e/7xc9ns?autoplay=0&muted=1" scrolling="no"></iframe>
-              <div class="clip-play-overlay"><i class="fa-solid fa-play"></i></div>
-            </div>
+            <iframe src="https://streamable.com/e/7xc9ns?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>5: aim god ya</h4>
               <p>Oynat • İzle</p>
@@ -842,18 +758,11 @@
 
   </div>
 
-  <!-- VİDEO OYNATMA PENCERESİ (Özel Sol-Sağ Çubuklu Alt Bar ile) -->
+  <!-- VİDEO OYNATMA PENCERESİ (MODAL) -->
   <div class="video-modal" id="videoModal" onclick="closeVideoModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
       <iframe id="modalVideoPlayer" src="" allowfullscreen></iframe>
-      <div class="custom-player-bar">
-        <span><i class="fa-solid fa-clapperboard" style="color: var(--accent-pink);"></i> ahsensi-platform oynatıcı</span>
-        <div class="volume-control-group">
-          <i class="fa-solid fa-volume-high"></i>
-          <span style="font-size: 0.75rem; color: var(--text-muted);">Ses / Kontrol için video üzerine tıklayabilirsin</span>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -868,7 +777,7 @@
       container.scrollBy({ left: direction * 250, behavior: 'smooth' });
     }
 
-    // Video Modal Açma
+    // Video Modal Açma (Streamable Embed Linki ile)
     function openVideoModal(videoSrc) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
