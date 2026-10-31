@@ -334,7 +334,7 @@
       border-color: var(--accent-pink);
     }
 
-    /* VİDEO OYNATICI MODAL PENCERESİ */
+    /* VİDEO OYNATICI MODAL PENCERESİ (Streamable Iframe Entegreli) */
     .video-modal {
       display: none;
       position: fixed;
@@ -352,6 +352,7 @@
       position: relative;
       width: 100%;
       max-width: 750px;
+      aspect-ratio: 16/9;
       background: #000;
       border-radius: 20px;
       overflow: hidden;
@@ -362,12 +363,10 @@
       align-items: center;
     }
 
-    .modal-content video {
+    .modal-content iframe {
       width: 100%;
-      height: auto;
-      max-height: 80vh;
-      display: block;
-      object-fit: contain;
+      height: 100%;
+      border: 0;
     }
 
     .close-modal {
@@ -620,45 +619,45 @@
         
         <div class="clips-container" id="clipsContainer">
           
-          <!-- 1. Klip -->
-          <div class="clip-card" onclick="openVideoModal('immo aim.mp4')">
-            <video src="immo aim.mp4" class="clip-video-box" muted loop playsinline></video>
+          <!-- 1. Klip: immo aim -->
+          <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/ozhhuh')">
+            <iframe src="https://streamable.com/e/ozhhuh?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>1: immo aim</h4>
               <p>Oynat • İzle</p>
             </div>
           </div>
 
-          <!-- 2. Klip -->
-          <div class="clip-card" onclick="openVideoModal('klip2.mp4')">
-            <video src="klip2.mp4" class="clip-video-box" muted loop playsinline></video>
+          <!-- 2. Klip: dümenden m24 ile adam vurma işi -->
+          <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/yuxnqq')">
+            <iframe src="https://streamable.com/e/yuxnqq?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>2: dümenden m24 ile adam vurma işi</h4>
               <p>Oynat • İzle</p>
             </div>
           </div>
 
-          <!-- 3. Klip -->
-          <div class="clip-card" onclick="openVideoModal('klip3.mp4')">
-            <video src="klip3.mp4" class="clip-video-box" muted loop playsinline></video>
+          <!-- 3. Klip: gözüm yok -->
+          <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/fsbj0k')">
+            <iframe src="https://streamable.com/e/fsbj0k?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>3: gözüm yok</h4>
               <p>Oynat • İzle</p>
             </div>
           </div>
 
-          <!-- 4. Klip -->
-          <div class="clip-card" onclick="openVideoModal('klip4.mp4')">
-            <video src="klip4.mp4" class="clip-video-box" muted loop playsinline></video>
+          <!-- 4. Klip: CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR -->
+          <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/6pc0j3')">
+            <iframe src="https://streamable.com/e/6pc0j3?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>4: CANİ AHSEN KEDIYE INFAZ EMRI VERIYOR</h4>
               <p>Oynat • İzle</p>
             </div>
           </div>
 
-          <!-- 5. Klip -->
-          <div class="clip-card" onclick="openVideoModal('klip5.mp4')">
-            <video src="klip5.mp4" class="clip-video-box" muted loop playsinline></video>
+          <!-- 5. Klip: aim god ya -->
+          <div class="clip-card" onclick="openVideoModal('https://streamable.com/e/7xc9ns')">
+            <iframe src="https://streamable.com/e/7xc9ns?autoplay=0&muted=1" class="clip-video-box" style="border:none;" scrolling="no"></iframe>
             <div class="clip-info">
               <h4>5: aim god ya</h4>
               <p>Oynat • İzle</p>
@@ -671,7 +670,7 @@
       </div>
     </section>
 
-    <!-- Sosyal Medya Kartları (Kick Logosu 'K', Diğerleri Orijinal İkonlar) -->
+    <!-- Sosyal Medya Kartları -->
     <section id="platforms">
       <h2 class="section-title"><i class="fa-solid fa-link"></i> Sosyal Medya Kanalları</h2>
       <div class="grid-platforms">
@@ -763,7 +762,7 @@
   <div class="video-modal" id="videoModal" onclick="closeVideoModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeVideoModal()"><i class="fa-solid fa-xmark"></i></button>
-      <video id="modalVideoPlayer" controls></video>
+      <iframe id="modalVideoPlayer" src="" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -778,21 +777,18 @@
       container.scrollBy({ left: direction * 250, behavior: 'smooth' });
     }
 
-    // Video Modal Açma
+    // Video Modal Açma (Streamable Embed Linki ile)
     function openVideoModal(videoSrc) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
-      player.src = videoSrc;
+      player.src = videoSrc + '?autoplay=1';
       modal.style.display = 'flex';
-      player.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
     }
 
     // Video Modal Kapatma
     function closeVideoModal() {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('modalVideoPlayer');
-      player.pause();
-      player.currentTime = 0;
       player.src = '';
       modal.style.display = 'none';
     }
