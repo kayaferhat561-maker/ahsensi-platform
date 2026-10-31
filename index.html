@@ -913,7 +913,7 @@
     <i class="fa-solid fa-box-archive"></i>
   </div>
 
-  <!-- ZARF GÖNDERME MODALI (Ziyaretçiler İçin) -->
+  <!-- ZARF GÖNDERME MODALI -->
   <div class="chest-modal" id="chestModal" onclick="closeChestModal()">
     <div class="envelope-box" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeChestModal()" style="top: 10px; right: 10px; width: 32px; height: 32px; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
@@ -940,7 +940,7 @@
     </div>
   </div>
 
-  <!-- GELEN MESAJLARI OKUMA PANELİ (Sadece Sana Özel) -->
+  <!-- GELEN MESAJLARI OKUMA PANELİ (Realtime Database) -->
   <div class="chest-modal" id="adminPanelModal" onclick="closeAdminPanelModal()">
     <div class="envelope-box" onclick="event.stopPropagation()" style="max-width: 600px;">
       <button class="close-modal" onclick="closeAdminPanelModal()" style="top: 10px; right: 10px; width: 32px; height: 32px; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
@@ -967,30 +967,31 @@
     <p>&copy; 2026 ahsensi-platform. Tüm hakları saklıdır.</p>
   </footer>
 
-  <!-- Firebase (Veritabanı) SDK ları -->
+  <!-- Firebase Realtime Database SDK ları -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getDatabase, ref, push, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // Firebase Bilgilerini buraya ekleyeceksin
+    // Realtime Database URL'niz otomatik olarak eklendi!
     const firebaseConfig = {
       apiKey: "BURAYA_FIREBASE_API_KEY",
       authDomain: "BURAYA_FIREBASE_AUTH_DOMAIN",
-      projectId: "BURAYA_FIREBASE_PROJECT_ID",
+      databaseURL: "https://ahsensi-platform-default-rtdb.firebaseio.com/",
+      projectId: "ahsensi-platform",
       storageBucket: "BURAYA_FIREBASE_STORAGE_BUCKET",
       messagingSenderId: "BURAYA_FIREBASE_MESSAGING_SENDER_ID",
       appId: "BURAYA_FIREBASE_APP_ID"
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    const db = getDatabase(app);
 
-    // Mesaj Gönderme
+    // Realtime Database ile Mesaj Gönderme
     window.submitMessageToFirebase = async function(messageText) {
       try {
-        await addDoc(collection(db, "gizli_mesajlar"), {
+        await push(ref(db, 'gizli_mesajlar'), {
           mesaj: messageText,
-          tarih: serverTimestamp()
+          tarih: Date.now()
         });
         return true;
       } catch (e) {
@@ -999,23 +1000,26 @@
       }
     };
 
-    // Mesajları Çekme (Yönetici Paneli İçin)
+    // Realtime Database ile Mesajları Çekme (Yönetici Paneli)
     window.fetchMessagesFromFirebase = async function() {
       const container = document.getElementById('messagesList');
       container.innerHTML = '<div class="message-item">Yükleniyor...</div>';
       try {
-        const q = query(collection(db, "gizli_mesajlar"), orderBy("tarih", "desc"));
-        const querySnapshot = await getDocs(q);
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, 'gizli_mesajlar'));
         
         container.innerHTML = '';
-        if (querySnapshot.empty) {
+        if (!snapshot.exists()) {
           container.innerHTML = '<div class="message-item">Sandık henüz tertemiz, hiç mesaj yok! ✨</div>';
           return;
         }
 
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const dateStr = data.tarih ? new Date(data.tarih.seconds * 1000).toLocaleString('tr-TR') : 'Az önce';
+        const messages = snapshot.val();
+        const keys = Object.keys(messages).reverse();
+
+        keys.forEach((key) => {
+          const data = messages[key];
+          const dateStr = data.tarih ? new Date(data.tarih).toLocaleString('tr-TR') : 'Az önce';
           const item = document.createElement('div');
           item.className = 'message-item';
           item.innerHTML = `${escapeHtml(data.mesaj)} <span>${dateStr}</span>`;
@@ -1078,7 +1082,7 @@
       document.getElementById('adminPanelModal').style.display = 'none';
     }
 
-    // Yönetici Giriş Kontrolü
+    // Yönetici Giriş Kontrolü (ahsen / battıbalık)
     function checkAdminLogin() {
       const user = document.getElementById('adminUser').value.trim();
       const pass = document.getElementById('adminPass').value.trim();
@@ -1119,7 +1123,7 @@
         alert('Zarfın başarıyla gizli sandığa ulaştı! Teşekkürler ✨');
       }, 800);
 
-      // Firebase'e Kaydet
+      // Realtime Database'e Kaydet
       if (window.submitMessageToFirebase) {
         await window.submitMessageToFirebase(text);
       }
