@@ -54,7 +54,7 @@
     .glow-2 { bottom: -100px; right: -100px; background: #7f5af0; }
 
     /* Kayan Sönük ve Küçük Şakayık Çiçekleri Arka Planı */
-    .stars-bg {
+    .peony-bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -69,7 +69,7 @@
       position: absolute;
       object-fit: contain;
       animation: floatPeony linear infinite;
-      opacity: 0.35; /* Daha sönük / hafif görünüm için düşürüldü */
+      opacity: 0.35; /* Sönük / hafif görünüm */
       filter: drop-shadow(0 0 4px rgba(255, 42, 117, 0.15));
     }
 
@@ -913,7 +913,7 @@
   <!-- Arka Plan Işıkları ve Sönük/Küçük Şakayık Görselleri -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
-  <div class="stars-bg" id="starsBg"></div>
+  <div class="peony-bg" id="peonyBg"></div>
 
   <!-- Navigasyon Bar -->
   <nav>
@@ -1391,19 +1391,19 @@
       }
     }
 
-    /* KÜÇÜK VE SÖNÜK ŞAKAYIK ÇİÇEKLERİ ARKA PLAN OLUŞTURUCU */
+    /* GERÇEK ŞAKAYIK GÖRSELLERİNİ ARKA PLANDA SÜZME FONKSİYONU */
     (function createFloatingPeonies() {
-      const container = document.getElementById('starsBg');
+      const container = document.getElementById('peonyBg');
       
       for (let i = 0; i < 18; i++) {
         const peony = document.createElement('img');
-        peony.src = 'sakayik.png'; // Görsel dosya adın
+        peony.src = 'sakayik.png'; // Klasördeki şakayık görselinin adı
         peony.className = 'floating-peony-img';
         peony.style.left = Math.random() * 100 + '%';
         peony.style.animationDuration = (Math.random() * 9 + 7) + 's';
         peony.style.animationDelay = (Math.random() * 6) + 's';
         
-        // Daha küçük boyutlar (18px ile 32px arası)
+        // Küçük boyutlar (18px ile 32px arası)
         const size = Math.random() * 14 + 18; 
         peony.style.width = size + 'px';
         peony.style.height = size + 'px';
