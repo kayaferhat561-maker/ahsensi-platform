@@ -2,19 +2,19 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ahsen & Ferhat - Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahsen'e Özel Doğum Günü & Platform</title>
 
   <!-- Font Awesome İkonları -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
-  <!-- Google Fonts (Inter / Outfit) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Global Sıfırlama ve Temel Stiller */
+    /* --- GENEL STİLLER --- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,67 +29,140 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
-    /* Ana Konteyner */
     .container {
       width: 100%;
-      max-width: 480px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
-    /* Navigasyon / Üst Menü İçi Bağış Butonu */
-    .header-nav {
+    /* --- SAĞ ÜST SABİT BYNOGAME DESTEK BUTONU --- */
+    .floating-donate-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
       display: flex;
-      justify-content: flex-end;
-      margin-bottom: 20px;
-    }
-
-    .nav-bynogame-btn {
-      display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(228, 30, 63, 0.15);
-      border: 1px solid rgba(228, 30, 63, 0.4);
-      color: #ff4757;
-      padding: 8px 16px;
-      border-radius: 20px;
+      background: linear-gradient(135deg, #e41e3f 0%, #b30f2b 100%);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 30px;
       text-decoration: none;
-      font-size: 0.88rem;
       font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(228, 30, 63, 0.4);
       transition: all 0.3s ease;
     }
 
-    .nav-bynogame-btn:hover {
-      background: #e41e3f;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(228, 30, 63, 0.4);
+    .floating-donate-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 20px rgba(228, 30, 63, 0.6);
+      background: linear-gradient(135deg, #ff2a4b 0%, #d41434 100%);
     }
 
-    /* ByNoGame Destek Kartı (Cam Efekti / Glassmorphism) */
-    .donate-card {
+    /* --- ÜST BAŞLIK & PROFİL --- */
+    .header-section {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+
+    .header-section h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff7675, #6c5ce7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .header-section p {
+      color: #a0a5b5;
+      font-size: 1rem;
+    }
+
+    /* --- CAM EFEKLİ KARTLAR (GLASSMORPHISM) --- */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    /* --- SAYAÇ & ETKİNLİK ALANI --- */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    .time-box {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .time-box .num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ff7675;
+    }
+
+    .time-box .label {
+      font-size: 0.75rem;
+      color: #a0a5b5;
+    }
+
+    /* --- SAYFA ALTI FOOTER & BYNOGAME KARTI --- */
+    .site-footer {
+      width: 100%;
+      margin-top: 40px;
+      padding-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-donate-card {
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
-      padding: 32px 24px;
+      padding: 28px 24px;
       text-align: center;
+      max-width: 480px;
+      width: 100%;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .donate-card:hover {
-      transform: translateY(-4px);
+    .footer-donate-card:hover {
       border-color: rgba(228, 30, 63, 0.4);
       box-shadow: 0 15px 35px rgba(228, 30, 63, 0.15);
     }
 
-    .donate-badge {
+    .footer-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -99,25 +172,23 @@
       font-weight: 700;
       padding: 6px 14px;
       border-radius: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       letter-spacing: 1px;
     }
 
-    .donate-card h3 {
+    .footer-donate-card h3 {
       color: #ffffff;
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
     }
 
-    .donate-card p {
+    .footer-donate-card p {
       color: #a0a5b5;
       font-size: 0.92rem;
       line-height: 1.5;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    /* ByNoGame Yönlendirme Butonu */
     .bynogame-btn {
       display: inline-flex;
       align-items: center;
@@ -128,11 +199,11 @@
       color: #ffffff;
       font-weight: 600;
       font-size: 1rem;
-      padding: 16px 20px;
-      border-radius: 14px;
+      padding: 14px 20px;
+      border-radius: 12px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 18px rgba(228, 30, 63, 0.35);
+      box-shadow: 0 4px 15px rgba(228, 30, 63, 0.35);
     }
 
     .bynogame-btn:hover {
@@ -140,46 +211,75 @@
       box-shadow: 0 8px 25px rgba(228, 30, 63, 0.55);
       transform: scale(1.02);
     }
-
-    .bynogame-btn i {
-      font-size: 0.9rem;
-      transition: transform 0.2s ease;
-    }
-
-    .bynogame-btn:hover i.fa-arrow-up-right-from-square {
-      transform: translate(2px, -2px);
-    }
   </style>
 </head>
 <body>
 
+  <!-- 1. SAĞ ÜST SABİT BYNOGAME BUTONU -->
+  <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="floating-donate-btn">
+    <i class="fa-solid fa-heart"></i>
+    <span>Destek Ol</span>
+  </a>
+
+  <!-- ANA İÇERİK KONTEYNERİ -->
   <div class="container">
     
-    <!-- İsteğe Bağlı: Sayfa Üstü Hızlı Bağış Butonu -->
-    <div class="header-nav">
-      <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="nav-bynogame-btn">
-        <i class="fa-solid fa-heart"></i> Destek Ol
-      </a>
+    <!-- ÜST BAŞLIK -->
+    <div class="header-section">
+      <h1>İyi ki Doğdun Ahsen! 🎉</h1>
+      <p>Sana özel hazırladığımız dijital anı ve destek platformu</p>
     </div>
 
-    <!-- Ana ByNoGame Bağış Yönlendirme Kartı -->
-    <div class="donate-card">
-      <div class="donate-badge">
-        <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
+    <!-- SAYAÇ KARTI -->
+    <div class="glass-card">
+      <div class="card-title">
+        <i class="fa-solid fa-clock" style="color: #ff7675;"></i>
+        <span>Canlı Yayın / Doğum Günü Sayacı</span>
       </div>
-
-      <h3>Yayınları Desteklemek İster misin?</h3>
-      <p>Bağış yaparak ekranda mesajını gösterebilir ve canlı yayınlarımıza katkıda bulunabilirsin.</p>
-
-      <!-- Doğrudan ByNoGame Linkine Yönlendiren Buton -->
-      <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="bynogame-btn">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>ByNoGame ile Destek Ol</span>
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
+      <div class="countdown-grid">
+        <div class="time-box"><div class="num" id="days">00</div><div class="label">Gün</div></div>
+        <div class="time-box"><div class="num" id="hours">00</div><div class="label">Saat</div></div>
+        <div class="time-box"><div class="num" id="minutes">00</div><div class="label">Dakika</div></div>
+        <div class="time-box"><div class="num" id="seconds">00</div><div class="label">Saniye</div></div>
+      </div>
     </div>
+
+    <!-- 2. SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER) -->
+    <footer class="site-footer">
+      <div class="footer-donate-card">
+        <div class="footer-badge">
+          <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
+        </div>
+        <h3>Yayınları Desteklemek İster misin?</h3>
+        <p>Bağış yaparak ekranda mesajını gösterebilir ve yayınlarımıza katkıda bulunabilirsin.</p>
+        
+        <!-- BYNOGAME YÖNLENDİRME LINKI -->
+        <a href="https://www.bynogame.com/tr/destek/ferhatkaya09" target="_blank" rel="noopener noreferrer" class="bynogame-btn">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>ByNoGame ile Destek Ol</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </footer>
 
   </div>
+
+  <script>
+    // Örnek Sayaç Mantığı
+    const targetDate = new Date().getTime() + (5 * 24 * 60 * 60 * 1000); // 5 gün sonrası için örnek
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if(diff > 0) {
+        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+      }
+    }, 1000);
+  </script>
 
 </body>
 </html>
