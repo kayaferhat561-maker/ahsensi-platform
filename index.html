@@ -422,7 +422,7 @@
     .floating-chest-btn:hover {
       transform: scale(1.2) rotate(0deg) !important;
       box-shadow: 0 15px 35px rgba(255, 42, 117, 0.6);
-      animation: none; /* Üzerine gelince dansı durdurup büyüsün */
+      animation: none;
     }
 
     /* MODALLAR */
@@ -1091,12 +1091,12 @@
       document.getElementById('adminPanelModal').style.display = 'none';
     }
 
-    // Yönetici Giriş Kontrolü (ahsen / battıbalık)
+    // Yönetici Giriş Kontrolü (ahsen / çıtkırıldım)
     function checkAdminLogin() {
       const user = document.getElementById('adminUser').value.trim();
       const pass = document.getElementById('adminPass').value.trim();
 
-      if (user === 'ahsen' && pass === 'battıbalık') {
+      if (user === 'ahsen' && pass === 'çıtkırıldım') {
         closeAdminLoginModal();
         document.getElementById('adminPanelModal').style.display = 'flex';
         if (window.fetchMessagesFromFirebase) {
