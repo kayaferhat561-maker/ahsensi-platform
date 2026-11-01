@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ahsensi Platform | Resmi Sosyal Medya ve Yayın Kanalları ✨</title>
   
+  <!-- Tarayıcı Sekmesi İkonu (Favicon) -->
+  <link rel="icon" type="image/png" href="ahsen1.png">
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,7 +199,7 @@
       display: block;
     }
 
-    /* Yayın Durum Rozeti (Fotoğrafın hemen altında, bitişik) */
+    /* Yayın Durum Rozeti */
     .status-indicator {
       display: inline-flex;
       align-items: center;
@@ -218,7 +221,6 @@
       border-radius: 50%;
     }
 
-    /* Canlı Modu */
     .status-indicator.live .status-dot {
       background: #22c55e;
       box-shadow: 0 0 8px #22c55e;
@@ -230,7 +232,6 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* Çevrimdışı Modu */
     .status-indicator.offline .status-dot {
       background: var(--text-muted);
     }
@@ -929,7 +930,7 @@
         <li><a href="#contact">İletişim</a></li>
       </ul>
 
-      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU (GÜNCELLENDİ) -->
+      <!-- SAĞ ÜST KÖŞE DESTEK BUTONU -->
       <a href="https://donate.bynogame.com/ahsensi" target="_blank" rel="noopener noreferrer" class="nav-destek-btn">
         <i class="fa-solid fa-heart"></i> Destek
       </a>
@@ -1116,7 +1117,7 @@
       </div>
     </section>
 
-    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI (FOOTER - GÜNCELLENDİ) -->
+    <!-- SAYFA ALTI BYNOGAME BAĞIŞ KARTI -->
     <div class="footer-donate-section">
       <div class="footer-badge">
         <i class="fa-solid fa-heart"></i> YAYINA DESTEK OL
@@ -1392,6 +1393,7 @@
       }
     }
 
+    /* Kayan Yıldızlar Arka Plan Oluşturucu */
     (function createShootingStars() {
       const container = document.getElementById('starsBg');
       const symbols = ['✨', '⭐', '★', '·', '✦'];
